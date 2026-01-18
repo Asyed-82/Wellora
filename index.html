@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellora - Your Personalized Wellness Journey</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --secondary: #2196F3;
+            --light: #f8f9fa;
+            --dark: #333;
+            --gray: #666;
+            --light-gray: #e9ecef;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a.active {
+            color: var(--primary);
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 200px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Home Page */
+        .hero {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 80px 0;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Disclaimer Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal {
+            background: white;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h2 {
+            color: var(--danger);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-content {
+            background-color: #fff9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid var(--danger);
+            margin-bottom: 30px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Onboarding Steps */
+        .onboarding-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 16.66%;
+            transition: width 0.5s;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .step h2 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .step p {
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .selection-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .selection-btn {
+            padding: 12px 20px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .selection-btn.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .pill-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .pill-input input {
+            flex-grow: 1;
+        }
+
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .pill {
+            background-color: #e3f2fd;
+            padding: 8px 15px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pill i {
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .step-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        /* Recommendations Page */
+        .recommendations-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .recommendations-list {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .recommendation-card {
+            border: 1px solid var(--light-gray);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            transition: all 0.3s;
+        }
+
+        .recommendation-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .rec-image {
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .rec-info {
+            flex-grow: 1;
+        }
+
+        .rec-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .rec-info p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .rec-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background-color: #e8f5e9;
+            color: var(--primary-dark);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .rec-actions {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* AI Chat */
+        .chat-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .chat-header i {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            margin-left: auto;
+        }
+
+        .message-content {
+            padding: 12px 18px;
+            border-radius: 18px;
+            display: inline-block;
+        }
+
+        .message.ai .message-content {
+            background-color: #e3f2fd;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.user .message-content {
+            background-color: var(--primary);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        /* Calendar */
+        .calendar-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .calendar-day {
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .calendar-day:hover {
+            background-color: #f0f0f0;
+        }
+
+        .calendar-day.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .calendar-day-header {
+            font-weight: 600;
+            padding: 10px;
+            text-align: center;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .recommendations-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .onboarding-container {
+                padding: 20px;
+            }
+            
+            .calendar-grid {
+                gap: 5px;
+            }
+            
+            .calendar-day {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Disclaimer Modal -->
+    <div id="disclaimerModal" class="modal-overlay" style="display: flex;">
+        <div class="modal">
+            <h2><i class="fas fa-exclamation-triangle"></i> Important Health Disclaimer</h2>
+            <div class="modal-content">
+                <p><strong>Wellora provides educational information only and is not a substitute for professional medical advice, diagnosis, or treatment.</strong></p>
+                <p>Always consult with a qualified healthcare provider before starting, stopping, or changing any supplement or medication regimen.</p>
+                <p>This application is designed to support your wellness journey by providing personalized recommendations based on the information you provide. However, these recommendations are for educational purposes only.</p>
+                <p>Do not disregard professional medical advice or delay seeking it because of something you have read or received through this application. If you think you may have a medical emergency, call your doctor or emergency services immediately.</p>
+                <p>Wellora does not recommend or endorse any specific tests, physicians, products, procedures, opinions, or other information that may be mentioned in the application. Reliance on any information provided by Wellora is solely at your own risk.</p>
+            </div>
+            <div class="modal-buttons">
+                <button id="acceptDisclaimer" class="btn btn-primary">I Understand & Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Wellora</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="profile">My Profile</a></li>
+                    <li><a href="#" class="nav-link" data-page="recommendations">Recommendations</a></li>
+                    <li><a href="#" class="nav-link" data-page="coach">Health Coach</a></li>
+                    <li><a href="#" class="nav-link" data-page="appointments">Appointments</a></li>
+                    <li><a href="#" class="nav-link" data-page="shop">Shop</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn btn-outline btn-small">Login</button>
+                <button id="signupBtn" class="btn btn-primary btn-small">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <h1>Your Personalized Wellness Journey Starts Here</h1>
+                <p>Wellora combines AI-powered insights with professional healthcare guidance to create a custom wellness plan just for you.</p>
+                <div>
+                    <button id="startOnboarding" class="btn btn-primary">Start Personalization</button>
+                    <a href="#" class="btn btn-secondary" data-page="shop">Shop Now</a>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI-Powered Recommendations</h3>
+                    <p>Get personalized supplement and vitamin recommendations based on your unique health profile.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-md"></i>
+                    <h3>Healthcare Professionals</h3>
+                    <p>Book appointments and message with qualified natural healthcare providers.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Quality Products</h3>
+                    <p>Access professionally curated supplements from our trusted partners.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Onboarding/Profile Page -->
+        <section id="profile" class="page">
+            <div class="onboarding-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar"></div>
+                </div>
+                
+                <!-- Step 1: Demographics -->
+                <div class="step active" id="step1">
+                    <h2>Let's Personalize Your Health Experience</h2>
+                    <p>Tell us a bit about yourself so we can recommend the best supplements for you.</p>
+                    
+                    <div class="form-group">
+                        <label for="age">Your Age</label>
+                        <input type="number" id="age" class="input-field" min="18" max="100" placeholder="Enter your age">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Biological Sex (for supplement recommendations)</label>
+                        <div class="selection-group">
+                            <button class="selection-btn sex-btn" data-value="male">Male</button>
+                            <button class="selection-btn sex-btn" data-value="female">Female</button>
+                        </div>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <div></div>
+                        <button class="btn btn-primary next-step" data-next="2">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Health Conditions -->
+                <div class="step" id="step2">
+                    <h2>Any Health Conditions?</h2>
+                    <p>Select all that apply to you. This helps us make safe recommendations.</p>
+                    
+                    <div class="checkbox-grid" id="conditionsList">
+                        <!-- Conditions will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="btn btn-outline prev-step" data-prev="1">Back</button>
+                        <button class="btn btn-primary next-step" data-next="3">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Medications -->
+                <div class="step" id="step3">
+                    <h2>Current Medications</h2>
+                    <p>List any medications you're currently taking.</p>
+                    
+                    <div class="form-group">
+                        <div class="pill-input">
+                            <input type="text" id="medicationInput" class="input-field" placeholder="Enter medication name">
+                            <button class="btn btn-outline" id="addMedication">Add</button>
+                        </div>
+                        <div class="pill-list" id="medicationList"></div>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="btn btn-outline prev-step" data-prev="2">Back</button>
+                        <button class="btn btn-primary next-step" data-next="4">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Allergies -->
+                <div class="step" id="step4">
+                    <h2>Any Allergies?</h2>
+                    <p>List any allergies you have (food, medication, supplements, etc.).</p>
+                    
+                    <div class="form-group">
+                        <div class="pill-input">
+                            <input type="text" id="allergyInput" class="input-field" placeholder="Enter allergy">
+                            <button class="btn btn-outline" id="addAllergy">Add</button>
+                        </div>
+                        <div class="pill-list" id="allergyList"></div>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="btn btn-outline prev-step" data-prev="3">Back</button>
+                        <button class="btn btn-primary next-step" data-next="5">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 5: Wellness Goals -->
+                <div class="step" id="step5">
+                    <h2>What Are Your Wellness Goals?</h2>
+                    <p>Select all that resonate with you.</p>
+                    
+                    <div class="selection-group" id="goalsList">
+                        <!-- Goals will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="btn btn-outline prev-step" data-prev="4">Back</button>
+                        <button class="btn btn-primary next-step" data-next="6">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 6: Dietary Preferences -->
+                <div class="step" id="step6">
+                    <h2>Dietary Preferences?</h2>
+                    <p>Select your dietary preferences to tailor recommendations.</p>
+                    
+                    <div class="selection-group" id="dietaryList">
+                        <!-- Dietary preferences will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="btn btn-outline prev-step" data-prev="5">Back</button>
+                        <button class="btn btn-primary" id="getRecommendations">Get My Recommendations</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommendations Page -->
+        <section id="recommendations" class="page">
+            <div class="recommendations-container">
+                <div class="recommendations-list">
+                    <h2>Your Personalized Recommendations</h2>
+                    <p>Based on your health profile, here are our AI-powered supplement suggestions.</p>
+                    
+                    <div id="recommendationsDisplay">
+                        <!-- Recommendations will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <i class="fas fa-robot"></i>
+                        <div>
+                            <h3>AI Health Coach</h3>
+                            <p>Ask questions about your recommendations</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message ai">
+                            <div class="message-content">Hello! I'm your AI Health Coach. I can answer questions about your supplement recommendations, health plan, or general wellness topics. How can I help you today?</div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Ask a question about your recommendations...">
+                        <button class="btn btn-primary" id="sendMessage">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Health Coach Page -->
+        <section id="coach" class="page">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <i class="fas fa-user-md"></i>
+                    <div>
+                        <h3>AI Health Coach</h3>
+                        <p>Ask any wellness-related questions</p>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="coachChatMessages">
+                    <div class="message ai">
+                        <div class="message-content">Hi there! I'm your AI Health Coach, integrated with the latest wellness research. I can help answer questions about supplements, wellness strategies, or explain your health plan. What would you like to know?</div>
+                        <div class="message-time">Just now</div>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" id="coachChatInput" placeholder="Ask any wellness question...">
+                    <button class="btn btn-primary" id="sendCoachMessage">Send</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appointments Page -->
+        <section id="appointments" class="page">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h2>Book Appointment with Healthcare Professional</h2>
+                    <button class="btn btn-primary" id="bookConsultation">Book Free Consultation</button>
+                </div>
+                
+                <p>Schedule a free consultation with our natural healthcare providers.</p>
+                
+                <div class="calendar-grid" id="calendarHeaders">
+                    <!-- Calendar headers will be populated by JavaScript -->
+                </div>
+                
+                <div class="calendar-grid" id="calendarDays">
+                    <!-- Calendar days will be populated by JavaScript -->
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <h3>Message Healthcare Providers</h3>
+                    <div class="form-group">
+                        <textarea class="input-field" rows="4" placeholder="Type your message to healthcare providers..."></textarea>
+                    </div>
+                    <button class="btn btn-secondary">Send Message</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shop Page -->
+        <section id="shop" class="page">
+            <div class="hero" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
+                <h1>Quality Supplements from Trusted Partners</h1>
+                <p>Access professionally curated wellness products through our partnership with Fullscript.</p>
+                <a href="https://us.fullscript.com/welcome/thewellnessemporium" target="_blank" class="btn btn-primary">Visit Fullscript Store</a>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <h2>You are being redirected to our trusted partner</h2>
+                <p>We've partnered with Fullscript to provide you with high-quality, professional-grade supplements.</p>
+                <div style="margin: 30px 0;">
+                    <a href="https://us.fullscript.com/welcome/thewellnessemporium" target="_blank" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 30px;">
+                        <i class="fas fa-external-link-alt"></i> Continue to Fullscript Store
+                    </a>
+                </div>
+                <p style="color: var(--gray); font-size: 0.9rem;">Opening in a new tab...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>Wellora</h3>
+                <p>Your personalized wellness companion, powered by AI and connected to healthcare professionals.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="profile">My Profile</a></li>
+                    <li><a href="#" class="nav-link" data-page="recommendations">Recommendations</a></li>
+                    <li><a href="#" class="nav-link" data-page="coach">Health Coach</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="appointments">Book Appointment</a></li>
+                    <li><a href="#" class="nav-link" data-page="shop">Shop Supplements</a></li>
+                    <li><a href="#">Health Articles</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#" id="showDisclaimer">Health Disclaimer</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>&copy; 2023 Wellora Wellness App. All rights reserved. This app provides educational information only and is not a substitute for professional medical advice.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data for the application
+        const healthConditions = [
+            "Diabetes", "Hypertension", "High Cholesterol", "Heart Disease", "Asthma", 
+            "Arthritis", "Osteoporosis", "Depression", "Anxiety", "PCOS", 
+            "Thyroid Issues", "Migraines", "IBS", "Crohn's Disease", "Ulcerative Colitis",
+            "GERD/Acid Reflux", "Eczema", "Psoriasis", "Sleep Apnea", "Insomnia",
+            "Fibromyalgia", "Chronic Fatigue", "Autoimmune Disease", "Allergies", "Obesity",
+            "Anemia", "Vitamin Deficiency", "Liver Disease", "Kidney Disease", "COPD"
+        ];
+
+        const wellnessGoals = [
+            "Boost Energy", "Improve Sleep", "Support Immunity", "Manage Stress",
+            "Improve Digestion", "Enhance Focus", "Support Joint Health", "Improve Skin Health",
+            "Weight Management", "Balance Hormones", "Improve Mood", "Increase Stamina",
+            "Detoxification", "Improve Heart Health", "Support Brain Health", "Build Muscle"
+        ];
+
+        const dietaryPreferences = [
+            "Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Keto",
+            "Paleo", "Mediterranean", "Low-Carb", "Low-FODMAP", "Pescatarian",
+            "Nut-Free", "Soy-Free", "Egg-Free", "Shellfish-Free", "Halal", "Kosher"
+        ];
+
+        const sampleRecommendations = [
+            {
+                name: "Vitamin D3 + K2",
+                description: "Supports bone health, immune function, and calcium absorption.",
+                reason: "Based on your age and wellness goals.",
+                tags: ["Bone Health", "Immunity", "Energy"]
+            },
+            {
+                name: "Magnesium Glycinate",
+                description: "Promotes relaxation, improves sleep quality, and supports muscle function.",
+                reason: "Recommended for stress management and sleep improvement goals.",
+                tags: ["Sleep", "Stress", "Muscle"]
+            },
+            {
+                name: "Omega-3 Fish Oil",
+                description: "High-quality EPA and DHA for heart, brain, and joint health.",
+                reason: "Supports your heart health and joint wellness goals.",
+                tags: ["Heart Health", "Brain Health", "Anti-inflammatory"]
+            },
+            {
+                name: "Probiotic Blend",
+                description: "Multi-strain probiotic for gut health and digestive support.",
+                reason: "Aligns with your digestive improvement goals.",
+                tags: ["Digestion", "Gut Health", "Immunity"]
+            }
+        ];
+
+        // User data object
+        let userData = {
+            age: null,
+            sex: null,
+            conditions: [],
+            medications: [],
+            allergies: [],
+            goals: [],
+            dietary: []
+        };
+
+        // DOM elements
+        const disclaimerModal = document.getElementById('disclaimerModal');
+        const acceptDisclaimerBtn = document.getElementById('acceptDisclaimer');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        const startOnboardingBtn = document.getElementById('startOnboarding');
+        const progressBar = document.getElementById('progressBar');
+        const steps = document.querySelectorAll('.step');
+        const nextStepBtns = document.querySelectorAll('.next-step');
+        const prevStepBtns = document.querySelectorAll('.prev-step');
+        const sexButtons = document.querySelectorAll('.sex-btn');
+        const conditionsList = document.getElementById('conditionsList');
+        const goalsList = document.getElementById('goalsList');
+        const dietaryList = document.getElementById('dietaryList');
+        const medicationInput = document.getElementById('medicationInput');
+        const addMedicationBtn = document.getElementById('addMedication');
+        const medicationList = document.getElementById('medicationList');
+        const allergyInput = document.getElementById('allergyInput');
+        const addAllergyBtn = document.getElementById('addAllergy');
+        const allergyList = document.getElementById('allergyList');
+        const getRecommendationsBtn = document.getElementById('getRecommendations');
+        const recommendationsDisplay = document.getElementById('recommendationsDisplay');
+        const chatInput = document.getElementById('chatInput');
+        const sendMessageBtn = document.getElementById('sendMessage');
+        const chatMessages = document.getElementById('chatMessages');
+        const coachChatInput = document.getElementById('coachChatInput');
+        const sendCoachMessageBtn = document.getElementById('sendCoachMessage');
+        const coachChatMessages = document.getElementById('coachChatMessages');
+        const showDisclaimerLink = document.getElementById('showDisclaimer');
+        const bookConsultationBtn = document.getElementById('bookConsultation');
+
+        // Initialize the application
+        function init() {
+            // Populate health conditions
+            healthConditions.forEach(condition => {
+                const div = document.createElement('div');
+                div.className = 'checkbox-item';
+                div.innerHTML = `
+                    <input type="checkbox" id="condition-${condition.replace(/\s+/g, '-')}" value="${condition}">
+                    <label for="condition-${condition.replace(/\s+/g, '-')}">${condition}</label>
+                `;
+                conditionsList.appendChild(div);
+            });
+
+            // Populate wellness goals
+            wellnessGoals.forEach(goal => {
+                const button = document.createElement('button');
+                button.className = 'selection-btn goal-btn';
+                button.textContent = goal;
+                button.dataset.value = goal;
+                goalsList.appendChild(button);
+            });
+
+            // Populate dietary preferences
+            dietaryPreferences.forEach(diet => {
+                const button = document.createElement('button');
+                button.className = 'selection-btn diet-btn';
+                button.textContent = diet;
+                button.dataset.value = diet;
+                dietaryList.appendChild(button);
+            });
+
+            // Initialize calendar
+            initCalendar();
+
+            // Load sample recommendations if no user data
+            displayRecommendations();
+        }
+
+        // Navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.dataset.page;
+                
+                // Update active nav link
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected page
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    if (page.id === pageId) {
+                        page.classList.add('active');
+                    }
+                });
+                
+                // If going to shop page, redirect after delay
+                if (pageId === 'shop') {
+                    setTimeout(() => {
+                        window.open('https://us.fullscript.com/welcome/thewellnessemporium', '_blank');
+                    }, 2000);
+                }
+            });
+        });
+
+        // Disclaimer
+        acceptDisclaimerBtn.addEventListener('click', function() {
+            disclaimerModal.style.display = 'none';
+            localStorage.setItem('welloraDisclaimerAccepted', 'true');
+        });
+
+        showDisclaimerLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            disclaimerModal.style.display = 'flex';
+        });
+
+        // Check if disclaimer was already accepted
+        if (localStorage.getItem('welloraDisclaimerAccepted')) {
+            disclaimerModal.style.display = 'none';
+        }
+
+        // Start onboarding
+        startOnboardingBtn.addEventListener('click', function() {
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            document.querySelector('[data-page="profile"]').classList.add('active');
+            
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById('profile').classList.add('active');
+        });
+
+        // Onboarding steps
+        let currentStep = 1;
+
+        function updateProgressBar() {
+            const progress = (currentStep / 6) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function showStep(stepNumber) {
+            steps.forEach(step => {
+                step.classList.remove('active');
+                if (step.id === `step${stepNumber}`) {
+                    step.classList.add('active');
+                }
+            });
+            currentStep = stepNumber;
+            updateProgressBar();
+        }
+
+        nextStepBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const nextStep = parseInt(this.dataset.next);
+                saveStepData(currentStep);
+                showStep(nextStep);
+            });
+        });
+
+        prevStepBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const prevStep = parseInt(this.dataset.prev);
+                showStep(prevStep);
+            });
+        });
+
+        // Sex selection
+        sexButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                sexButtons.forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                userData.sex = this.dataset.value;
+            });
+        });
+
+        // Save step data
+        function saveStepData(step) {
+            switch(step) {
+                case 1:
+                    userData.age = document.getElementById('age').value;
+                    break;
+                case 2:
+                    userData.conditions = [];
+                    document.querySelectorAll('#conditionsList input:checked').forEach(checkbox => {
+                        userData.conditions.push(checkbox.value);
+                    });
+                    break;
+                case 3:
+                    // Medications already saved in real-time
+                    break;
+                case 4:
+                    // Allergies already saved in real-time
+                    break;
+                case 5:
+                    userData.goals = [];
+                    document.querySelectorAll('.goal-btn.selected').forEach(btn => {
+                        userData.goals.push(btn.dataset.value);
+                    });
+                    break;
+                case 6:
+                    userData.dietary = [];
+                    document.querySelectorAll('.diet-btn.selected').forEach(btn => {
+                        userData.dietary.push(btn.dataset.value);
+                    });
+                    break;
+            }
+        }
+
+        // Medications
+        addMedicationBtn.addEventListener('click', function() {
+            const med = medicationInput.value.trim();
+            if (med && !userData.medications.includes(med)) {
+                userData.medications.push(med);
+                updateMedicationList();
+                medicationInput.value = '';
+            }
+        });
+
+        medicationInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addMedicationBtn.click();
+            }
+        });
+
+        function updateMedicationList() {
+            medicationList.innerHTML = '';
+            userData.medications.forEach(med => {
+                const pill = document.createElement('div');
+                pill.className = 'pill';
+                pill.innerHTML = `
+                    ${med}
+                    <i class="fas fa-times remove-med" data-med="${med}"></i>
+                `;
+                medicationList.appendChild(pill);
+            });
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-med').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const medToRemove = this.dataset.med;
+                    userData.medications = userData.medications.filter(m => m !== medToRemove);
+                    updateMedicationList();
+                });
+            });
+        }
+
+        // Allergies
+        addAllergyBtn.addEventListener('click', function() {
+            const allergy = allergyInput.value.trim();
+            if (allergy && !userData.allergies.includes(allergy)) {
+                userData.allergies.push(allergy);
+                updateAllergyList();
+                allergyInput.value = '';
+            }
+        });
+
+        allergyInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addAllergyBtn.click();
+            }
+        });
+
+        function updateAllergyList() {
+            allergyList.innerHTML = '';
+            userData.allergies.forEach(allergy => {
+                const pill = document.createElement('div');
+                pill.className = 'pill';
+                pill.innerHTML = `
+                    ${allergy}
+                    <i class="fas fa-times remove-allergy" data-allergy="${allergy}"></i>
+                `;
+                allergyList.appendChild(pill);
+            });
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-allergy').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const allergyToRemove = this.dataset.allergy;
+                    userData.allergies = userData.allergies.filter(a => a !== allergyToRemove);
+                    updateAllergyList();
+                });
+            });
+        }
+
+        // Goals selection
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('goal-btn')) {
+                e.target.classList.toggle('selected');
+            }
+            
+            if (e.target.classList.contains('diet-btn')) {
+                e.target.classList.toggle('selected');
+            }
+        });
+
+        // Get recommendations
+        getRecommendationsBtn.addEventListener('click', function() {
+            saveStepData(6);
+            
+            // Save user data to localStorage
+            localStorage.setItem('welloraUserData', JSON.stringify(userData));
+            
+            // Show recommendations page
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            document.querySelector('[data-page="recommendations"]').classList.add('active');
+            
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById('recommendations').classList.add('active');
+            
+            // Display recommendations
+            displayRecommendations();
+            
+            // Show success message
+            alert('Your profile has been saved! AI is now generating personalized recommendations for you.');
+        });
+
+        // Display recommendations
+        function displayRecommendations() {
+            recommendationsDisplay.innerHTML = '';
+            
+            sampleRecommendations.forEach(rec => {
+                const card = document.createElement('div');
+                card.className = 'recommendation-card';
+                card.innerHTML = `
+                    <div class="rec-image">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <div class="rec-info">
+                        <h3>${rec.name}</h3>
+                        <p>${rec.description}</p>
+                        <p><strong>Why this for you:</strong> ${rec.reason}</p>
+                        <div class="rec-tags">
+                            ${rec.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="rec-actions">
+                        <button class="btn btn-outline btn-small">Learn More</button>
+                        <button class="btn btn-primary btn-small">View on Fullscript</button>
+                    </div>
+                `;
+                recommendationsDisplay.appendChild(card);
+            });
+        }
+
+        // AI Chat
+        sendMessageBtn.addEventListener('click', sendChatMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        });
+
+        function sendChatMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.innerHTML = `
+                <div class="message-content">${message}</div>
+                <div class="message-time">${getCurrentTime()}</div>
+            `;
+            chatMessages.appendChild(userMsg);
+            
+            // Clear input
+            chatInput.value = '';
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Simulate AI response after delay
+            setTimeout(() => {
+                const aiResponse = getAIResponse(message);
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'message ai';
+                aiMsg.innerHTML = `
+                    <div class="message-content">${aiResponse}</div>
+                    <div class="message-time">${getCurrentTime()}</div>
+                `;
+                chatMessages.appendChild(aiMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
+
+        // AI Coach Chat
+        sendCoachMessageBtn.addEventListener('click', sendCoachMessage);
+        coachChatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendCoachMessage();
+            }
+        });
+
+        function sendCoachMessage() {
+            const message = coachChatInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.innerHTML = `
+                <div class="message-content">${message}</div>
+                <div class="message-time">${getCurrentTime()}</div>
+            `;
+            coachChatMessages.appendChild(userMsg);
+            
+            // Clear input
+            coachChatInput.value = '';
+            
+            // Scroll to bottom
+            coachChatMessages.scrollTop = coachChatMessages.scrollHeight;
+            
+            // Simulate AI response after delay
+            setTimeout(() => {
+                const aiResponse = getCoachResponse(message);
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'message ai';
+                aiMsg.innerHTML = `
+                    <div class="message-content">${aiResponse}</div>
+                    <div class="message-time">${getCurrentTime()}</div>
+                `;
+                coachChatMessages.appendChild(aiMsg);
+                coachChatMessages.scrollTop = coachChatMessages.scrollHeight;
+            }, 1000);
+        }
+
+        // AI Response generators
+        function getAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('vitamin d') || lowerMessage.includes('d3')) {
+                return "Vitamin D3 is often recommended for immune support and bone health. It works synergistically with Vitamin K2 for optimal calcium absorption. Based on your profile, a dose of 1000-2000 IU daily might be appropriate, but please consult with your healthcare provider for personalized dosing.";
+            } else if (lowerMessage.includes('magnesium') || lowerMessage.includes('sleep')) {
+                return "Magnesium glycinate is a highly bioavailable form that's gentle on the stomach. It supports relaxation, sleep quality, and muscle function. Many people take 200-400mg about 30 minutes before bedtime. It's particularly helpful if you've mentioned stress or sleep goals.";
+            } else if (lowerMessage.includes('omega') || lowerMessage.includes('fish oil')) {
+                return "The Omega-3 recommendation includes both EPA and DHA, which support heart, brain, and joint health. Look for a product with at least 500mg combined EPA/DHA per serving. If you have specific cardiovascular concerns, higher EPA formulas might be beneficial.";
+            } else if (lowerMessage.includes('probiotic') || lowerMessage.includes('gut')) {
+                return "The probiotic recommendation contains multiple strains to support gut microbiome diversity. Different strains serve different functions, so a broad-spectrum formula is ideal for general digestive wellness. Take with food for better survival through stomach acid.";
+            } else {
+                return "Based on your health profile including " + 
+                       (userData.goals.length > 0 ? `your goals (${userData.goals.slice(0, 2).join(', ')}), ` : '') +
+                       (userData.conditions.length > 0 ? `your health considerations, ` : '') +
+                       "these recommendations are tailored to provide foundational support. Remember to discuss any new supplements with your healthcare provider, especially if you're taking medications.";
+            }
+        }
+
+        function getCoachResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('energy') || lowerMessage.includes('tired')) {
+                return "For boosting energy, consider: 1) Ensuring adequate sleep (7-9 hours), 2) Balanced blood sugar through regular meals with protein, 3) B-vitamins for energy metabolism, 4) Iron if levels are low (get tested), and 5) Regular movement throughout the day. Would you like more specific supplement suggestions?";
+            } else if (lowerMessage.includes('stress') || lowerMessage.includes('anxiety')) {
+                return "Stress management strategies include: 1) Mindfulness or meditation practice, 2) Adaptogenic herbs like ashwagandha or rhodiola, 3) Magnesium for nervous system support, 4) Omega-3s for brain health, 5) Establishing boundaries and self-care routines. What aspect of stress are you most concerned about?";
+            } else if (lowerMessage.includes('sleep') || lowerMessage.includes('insomnia')) {
+                return "For better sleep: 1) Establish a consistent sleep schedule, 2) Create a dark, cool sleeping environment, 3) Limit screen time 1-2 hours before bed, 4) Consider magnesium glycinate, L-theanine, or melatonin (short-term), 5) Address any underlying stress or anxiety. How long have you been experiencing sleep issues?";
+            } else if (lowerMessage.includes('weight') || lowerMessage.includes('diet')) {
+                return "Weight management involves multiple factors: 1) Balanced nutrition with adequate protein, 2) Regular physical activity you enjoy, 3) Stress management (cortisol affects weight), 4) Quality sleep, 5) Possible metabolic support like chromium or berberine. Would you like to focus on a particular aspect?";
+            } else {
+                return "That's an excellent question about wellness. Based on current research and your health profile, I recommend discussing this with a healthcare provider for personalized advice. In general, a holistic approach that includes nutrition, movement, stress management, and sleep hygiene forms the foundation of good health. Is there a specific health goal you'd like to focus on?";
+            }
+        }
+
+        // Calendar functions
+        function initCalendar() {
+            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const calendarHeaders = document.getElementById('calendarHeaders');
+            const calendarDays = document.getElementById('calendarDays');
+            
+            // Create day headers
+            daysOfWeek.forEach(day => {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day-header';
+                dayEl.textContent = day;
+                calendarHeaders.appendChild(dayEl);
+            });
+            
+            // Create calendar days (simplified version)
+            const today = new Date();
+            const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+            
+            // Add empty cells for days before the first of the month
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day disabled';
+                calendarDays.appendChild(emptyDay);
+            }
+            
+            // Add days of the month
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = i;
+                
+                // Highlight today
+                if (i === today.getDate()) {
+                    dayEl.classList.add('selected');
+                }
+                
+                // Add click event
+                dayEl.addEventListener('click', function() {
+                    document.querySelectorAll('.calendar-day').forEach(day => {
+                        day.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+                
+                calendarDays.appendChild(dayEl);
+            }
+        }
+
+        // Book consultation
+        bookConsultationBtn.addEventListener('click', function() {
+            const selectedDay = document.querySelector('.calendar-day.selected');
+            if (selectedDay && !selectedDay.classList.contains('disabled')) {
+                alert(`Free consultation booked for ${selectedDay.textContent} ${getCurrentMonth()}! A confirmation will be sent to your email.`);
+            } else {
+                alert('Please select a date for your consultation.');
+            }
+        });
+
+        // Helper functions
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function getCurrentMonth() {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+            const now = new Date();
+            return months[now.getMonth()];
+        }
+
+        // Load saved user data if available
+        const savedData = localStorage.getItem('welloraUserData');
+        if (savedData) {
+            userData = JSON.parse(savedData);
+            // You could pre-populate forms here if needed
+        }
+
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>
