@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wellora - Your Personalized Wellness Journey</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         :root {
             --primary: #4CAF50;
             --primary-dark: #388E3C;
+            --primary-light: #C8E6C9;
             --secondary: #2196F3;
             --light: #f8f9fa;
             --dark: #333;
@@ -24,12 +26,14 @@
             --danger: #f44336;
             --warning: #ff9800;
             --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.15);
         }
 
         body {
             background-color: #f5f7fa;
             color: var(--dark);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
@@ -59,13 +63,21 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
             color: var(--primary);
+            letter-spacing: -1px;
+            text-decoration: none;
         }
 
-        .logo i {
-            font-size: 2rem;
+        .logo span {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 900;
+            font-size: 2.2rem;
         }
 
         nav ul {
@@ -81,6 +93,7 @@
             transition: color 0.3s;
             padding: 5px 0;
             position: relative;
+            font-size: 1rem;
         }
 
         nav a:hover {
@@ -108,7 +121,7 @@
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 50px;
             border: none;
             font-weight: 600;
@@ -117,6 +130,7 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
+            font-size: 1rem;
         }
 
         .btn-primary {
@@ -127,6 +141,7 @@
         .btn-primary:hover {
             background-color: var(--primary-dark);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
         }
 
         .btn-secondary {
@@ -137,6 +152,7 @@
         .btn-secondary:hover {
             background-color: #1976D2;
             transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
         }
 
         .btn-outline {
@@ -147,6 +163,7 @@
 
         .btn-outline:hover {
             background-color: rgba(76, 175, 80, 0.1);
+            transform: translateY(-2px);
         }
 
         .btn-small {
@@ -157,7 +174,7 @@
         /* Main Content */
         main {
             margin-top: 80px;
-            min-height: calc(100vh - 200px);
+            min-height: calc(100vh - 300px);
         }
 
         .page {
@@ -181,12 +198,27 @@
             border-radius: 20px;
             margin-bottom: 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" opacity="0.05"><path d="M0,0 L100,0 L100,100 Z" fill="%23333"/></svg>');
+            background-size: cover;
         }
 
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 20px;
             color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
         }
 
         .hero p {
@@ -194,6 +226,45 @@
             color: var(--gray);
             max-width: 700px;
             margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .contact-info {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gray);
         }
 
         .features {
@@ -209,11 +280,12 @@
             border-radius: 15px;
             box-shadow: var(--shadow);
             text-align: center;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
         }
 
         .feature-card i {
@@ -225,6 +297,59 @@
         .feature-card h3 {
             margin-bottom: 15px;
             font-size: 1.5rem;
+        }
+
+        /* Brands Section */
+        .brands-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 60px 0;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .brands-section h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .brand-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            transition: all 0.3s;
+        }
+
+        .brand-item:hover {
+            background: var(--primary-light);
+            transform: scale(1.05);
+        }
+
+        .discount-banner {
+            background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.3rem;
+            box-shadow: var(--shadow);
         }
 
         /* Disclaimer Modal */
@@ -499,7 +624,7 @@
             gap: 10px;
         }
 
-        /* AI Chat */
+        /* Health Coach Chat */
         .chat-container {
             background: white;
             border-radius: 15px;
@@ -548,7 +673,7 @@
             display: inline-block;
         }
 
-        .message.ai .message-content {
+        .message.coach .message-content {
             background-color: #e3f2fd;
             border-bottom-left-radius: 5px;
         }
@@ -629,6 +754,36 @@
             border-radius: 5px;
         }
 
+        /* Shop Page */
+        .shop-hero {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 80px 0;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .shop-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .shop-feature {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .shop-feature i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
         /* Footer */
         footer {
             background-color: #333;
@@ -675,19 +830,43 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
                 gap: 15px;
+                padding: 15px;
             }
             
             nav ul {
-                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
             }
             
             .hero h1 {
                 font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 10px;
             }
             
             .recommendations-container {
@@ -696,10 +875,22 @@
             
             .features {
                 grid-template-columns: 1fr;
+                padding: 0 15px;
             }
             
             .onboarding-container {
                 padding: 20px;
+                margin: 0 15px;
+            }
+            
+            .brands-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .brand-item {
+                font-size: 0.9rem;
+                padding: 15px 10px;
             }
             
             .calendar-grid {
@@ -707,8 +898,129 @@
             }
             
             .calendar-day {
-                padding: 8px;
+                padding: 8px 5px;
+                font-size: 0.9rem;
             }
+            
+            .chat-container {
+                height: 500px;
+                padding: 20px;
+            }
+            
+            .recommendation-card {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .rec-image {
+                width: 100%;
+                height: 150px;
+            }
+            
+            .step-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .step-buttons button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo span {
+                font-size: 1.7rem;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+            }
+            
+            .hero {
+                padding: 50px 20px;
+            }
+            
+            .contact-details {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .brands-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal {
+                padding: 25px;
+                margin: 0 15px;
+            }
+            
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Login Modal */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-modal.active {
+            display: flex;
+        }
+
+        .login-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .login-form h2 {
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .login-form .form-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
         }
     </style>
 </head>
@@ -730,13 +1042,45 @@
         </div>
     </div>
 
+    <!-- Login Modal -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-form">
+            <button class="close-modal" id="closeLoginModal">&times;</button>
+            <h2>Login to Wellora</h2>
+            <input type="email" id="loginEmail" placeholder="Email Address">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <div class="form-buttons">
+                <button class="btn btn-primary" id="submitLogin">Login</button>
+                <button class="btn btn-outline" id="cancelLogin">Cancel</button>
+            </div>
+            <p style="text-align: center; margin-top: 20px; color: var(--gray);">Don't have an account? <a href="#" id="switchToSignup" style="color: var(--primary);">Sign up</a></p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="login-modal">
+        <div class="login-form">
+            <button class="close-modal" id="closeSignupModal">&times;</button>
+            <h2>Create Account</h2>
+            <input type="text" id="signupName" placeholder="Full Name">
+            <input type="email" id="signupEmail" placeholder="Email Address">
+            <input type="password" id="signupPassword" placeholder="Password">
+            <input type="password" id="signupConfirmPassword" placeholder="Confirm Password">
+            <div class="form-buttons">
+                <button class="btn btn-primary" id="submitSignup">Sign Up</button>
+                <button class="btn btn-outline" id="cancelSignup">Cancel</button>
+            </div>
+            <p style="text-align: center; margin-top: 20px; color: var(--gray);">Already have an account? <a href="#" id="switchToLogin" style="color: var(--primary);">Login</a></p>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container header-container">
-            <div class="logo">
+            <a href="#" class="logo" data-page="home">
                 <i class="fas fa-leaf"></i>
                 <span>Wellora</span>
-            </div>
+            </a>
             <nav>
                 <ul>
                     <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
@@ -760,17 +1104,32 @@
         <section id="home" class="page active">
             <div class="hero">
                 <h1>Your Personalized Wellness Journey Starts Here</h1>
-                <p>Wellora combines AI-powered insights with professional healthcare guidance to create a custom wellness plan just for you.</p>
-                <div>
+                <p>Wellora combines smart technology with professional healthcare guidance to create a custom wellness plan just for you.</p>
+                <div class="hero-buttons">
                     <button id="startOnboarding" class="btn btn-primary">Start Personalization</button>
-                    <a href="#" class="btn btn-secondary" data-page="shop">Shop Now</a>
+                    <a href="https://us.fullscript.com/welcome/thewellnessemporium/store-start" target="_blank" class="btn btn-secondary">Shop Now</a>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <h3><i class="fas fa-map-marker-alt"></i> Visit Us</h3>
+                <p>89 New Lebbon Rd, Sandy Hook, CT 06482</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>860-460-7078</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>asadalisyed@dr.com</span>
+                    </div>
                 </div>
             </div>
             
             <div class="features">
                 <div class="feature-card">
-                    <i class="fas fa-robot"></i>
-                    <h3>AI-Powered Recommendations</h3>
+                    <i class="fas fa-brain"></i>
+                    <h3>Smart Recommendations</h3>
                     <p>Get personalized supplement and vitamin recommendations based on your unique health profile.</p>
                 </div>
                 <div class="feature-card">
@@ -782,6 +1141,28 @@
                     <i class="fas fa-shopping-cart"></i>
                     <h3>Quality Products</h3>
                     <p>Access professionally curated supplements from our trusted partners.</p>
+                </div>
+            </div>
+            
+            <div class="brands-section">
+                <h2>Wellora Partners with 300+ Premium Brands</h2>
+                <p>Shop with Wellora and get <strong>20% discount</strong> on your future orders!</p>
+                <div class="brands-grid">
+                    <div class="brand-item">pure encapsulations</div>
+                    <div class="brand-item">vital nutrients</div>
+                    <div class="brand-item">Garden of Life</div>
+                    <div class="brand-item">INTEGRATIVE THERAPEUTICS®</div>
+                    <div class="brand-item">DOUGLAS LABORATORIES</div>
+                    <div class="brand-item">NutriDyn™</div>
+                    <div class="brand-item">QUICKSILVER SCIENTIFIC</div>
+                    <div class="brand-item">NORDIC NATURALS®</div>
+                    <div class="brand-item">XYMOGEN</div>
+                    <div class="brand-item">THORNE®</div>
+                    <div class="brand-item">designs for health</div>
+                    <div class="brand-item">Standard Process</div>
+                </div>
+                <div class="discount-banner">
+                    <p><i class="fas fa-tag"></i> 10% off storewide | Free shipping over $50</p>
                 </div>
             </div>
         </section>
@@ -907,7 +1288,7 @@
             <div class="recommendations-container">
                 <div class="recommendations-list">
                     <h2>Your Personalized Recommendations</h2>
-                    <p>Based on your health profile, here are our AI-powered supplement suggestions.</p>
+                    <p>Based on your health profile, here are our smart technology-powered supplement suggestions.</p>
                     
                     <div id="recommendationsDisplay">
                         <!-- Recommendations will be populated by JavaScript -->
@@ -916,16 +1297,16 @@
                 
                 <div class="chat-container">
                     <div class="chat-header">
-                        <i class="fas fa-robot"></i>
+                        <i class="fas fa-user-md"></i>
                         <div>
-                            <h3>AI Health Coach</h3>
+                            <h3>Health Coach</h3>
                             <p>Ask questions about your recommendations</p>
                         </div>
                     </div>
                     
                     <div class="chat-messages" id="chatMessages">
-                        <div class="message ai">
-                            <div class="message-content">Hello! I'm your AI Health Coach. I can answer questions about your supplement recommendations, health plan, or general wellness topics. How can I help you today?</div>
+                        <div class="message coach">
+                            <div class="message-content">Hello! I'm your Health Coach. I can answer questions about your supplement recommendations, health plan, or general wellness topics. How can I help you today?</div>
                             <div class="message-time">Just now</div>
                         </div>
                     </div>
@@ -944,14 +1325,14 @@
                 <div class="chat-header">
                     <i class="fas fa-user-md"></i>
                     <div>
-                        <h3>AI Health Coach</h3>
+                        <h3>Health Coach</h3>
                         <p>Ask any wellness-related questions</p>
                     </div>
                 </div>
                 
                 <div class="chat-messages" id="coachChatMessages">
-                    <div class="message ai">
-                        <div class="message-content">Hi there! I'm your AI Health Coach, integrated with the latest wellness research. I can help answer questions about supplements, wellness strategies, or explain your health plan. What would you like to know?</div>
+                    <div class="message coach">
+                        <div class="message-content">Hi there! I'm your Health Coach, here to help you with wellness questions about supplements, wellness strategies, or your health plan. What would you like to know?</div>
                         <div class="message-time">Just now</div>
                     </div>
                 </div>
@@ -993,18 +1374,41 @@
 
         <!-- Shop Page -->
         <section id="shop" class="page">
-            <div class="hero" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
-                <h1>Quality Supplements from Trusted Partners</h1>
-                <p>Access professionally curated wellness products through our partnership with Fullscript.</p>
-                <a href="https://us.fullscript.com/welcome/thewellnessemporium" target="_blank" class="btn btn-primary">Visit Fullscript Store</a>
+            <div class="shop-hero">
+                <h1>Quality Supplements from Wellora</h1>
+                <p>Access professionally curated wellness products through our trusted partner network.</p>
+                <a href="https://us.fullscript.com/welcome/thewellnessemporium/store-start" target="_blank" class="btn btn-primary">Visit Wellora Store</a>
+            </div>
+            
+            <div class="shop-features">
+                <div class="shop-feature">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Free Shipping</h3>
+                    <p>Free shipping on all orders over $50</p>
+                </div>
+                <div class="shop-feature">
+                    <i class="fas fa-percentage"></i>
+                    <h3>20% Discount</h3>
+                    <p>Get 20% off on your future orders</p>
+                </div>
+                <div class="shop-feature">
+                    <i class="fas fa-award"></i>
+                    <h3>Premium Brands</h3>
+                    <p>300+ trusted wellness brands</p>
+                </div>
+                <div class="shop-feature">
+                    <i class="fas fa-user-md"></i>
+                    <h3>Professional Guidance</h3>
+                    <p>Recommendations from healthcare experts</p>
+                </div>
             </div>
             
             <div style="text-align: center; margin-top: 40px;">
-                <h2>You are being redirected to our trusted partner</h2>
-                <p>We've partnered with Fullscript to provide you with high-quality, professional-grade supplements.</p>
+                <h2>You are being redirected to our premium store</h2>
+                <p>Wellora brings you high-quality, professional-grade supplements from trusted partners.</p>
                 <div style="margin: 30px 0;">
-                    <a href="https://us.fullscript.com/welcome/thewellnessemporium" target="_blank" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 30px;">
-                        <i class="fas fa-external-link-alt"></i> Continue to Fullscript Store
+                    <a href="https://us.fullscript.com/welcome/thewellnessemporium/store-start" target="_blank" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 30px;">
+                        <i class="fas fa-external-link-alt"></i> Continue to Wellora Store
                     </a>
                 </div>
                 <p style="color: var(--gray); font-size: 0.9rem;">Opening in a new tab...</p>
@@ -1017,7 +1421,9 @@
         <div class="container footer-container">
             <div class="footer-column">
                 <h3>Wellora</h3>
-                <p>Your personalized wellness companion, powered by AI and connected to healthcare professionals.</p>
+                <p>89 New Lebbon Rd, Sandy Hook, CT 06482</p>
+                <p>860-460-7078</p>
+                <p>asadalisyed@dr.com</p>
             </div>
             <div class="footer-column">
                 <h3>Quick Links</h3>
@@ -1144,6 +1550,18 @@
         const coachChatMessages = document.getElementById('coachChatMessages');
         const showDisclaimerLink = document.getElementById('showDisclaimer');
         const bookConsultationBtn = document.getElementById('bookConsultation');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const loginModal = document.getElementById('loginModal');
+        const signupModal = document.getElementById('signupModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const closeSignupModal = document.getElementById('closeSignupModal');
+        const cancelLogin = document.getElementById('cancelLogin');
+        const cancelSignup = document.getElementById('cancelSignup');
+        const submitLogin = document.getElementById('submitLogin');
+        const submitSignup = document.getElementById('submitSignup');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
 
         // Initialize the application
         function init() {
@@ -1181,6 +1599,9 @@
 
             // Load sample recommendations if no user data
             displayRecommendations();
+            
+            // Setup login/signup modals
+            setupAuthModals();
         }
 
         // Navigation
@@ -1200,13 +1621,6 @@
                         page.classList.add('active');
                     }
                 });
-                
-                // If going to shop page, redirect after delay
-                if (pageId === 'shop') {
-                    setTimeout(() => {
-                        window.open('https://us.fullscript.com/welcome/thewellnessemporium', '_blank');
-                    }, 2000);
-                }
             });
         });
 
@@ -1416,7 +1830,7 @@
             displayRecommendations();
             
             // Show success message
-            alert('Your profile has been saved! AI is now generating personalized recommendations for you.');
+            alert('Your profile has been saved! Smart technology is now generating personalized recommendations for you.');
         });
 
         // Display recommendations
@@ -1440,14 +1854,14 @@
                     </div>
                     <div class="rec-actions">
                         <button class="btn btn-outline btn-small">Learn More</button>
-                        <button class="btn btn-primary btn-small">View on Fullscript</button>
+                        <a href="https://us.fullscript.com/welcome/thewellnessemporium/store-start" target="_blank" class="btn btn-primary btn-small">View on Wellora</a>
                     </div>
                 `;
                 recommendationsDisplay.appendChild(card);
             });
         }
 
-        // AI Chat
+        // Health Coach Chat
         sendMessageBtn.addEventListener('click', sendChatMessage);
         chatInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -1474,21 +1888,21 @@
             // Scroll to bottom
             chatMessages.scrollTop = chatMessages.scrollHeight;
             
-            // Simulate AI response after delay
+            // Simulate Health Coach response after delay
             setTimeout(() => {
-                const aiResponse = getAIResponse(message);
-                const aiMsg = document.createElement('div');
-                aiMsg.className = 'message ai';
-                aiMsg.innerHTML = `
-                    <div class="message-content">${aiResponse}</div>
+                const coachResponse = getCoachResponse(message, true);
+                const coachMsg = document.createElement('div');
+                coachMsg.className = 'message coach';
+                coachMsg.innerHTML = `
+                    <div class="message-content">${coachResponse}</div>
                     <div class="message-time">${getCurrentTime()}</div>
                 `;
-                chatMessages.appendChild(aiMsg);
+                chatMessages.appendChild(coachMsg);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }, 1000);
         }
 
-        // AI Coach Chat
+        // Health Coach Chat
         sendCoachMessageBtn.addEventListener('click', sendCoachMessage);
         coachChatInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -1515,53 +1929,51 @@
             // Scroll to bottom
             coachChatMessages.scrollTop = coachChatMessages.scrollHeight;
             
-            // Simulate AI response after delay
+            // Simulate Health Coach response after delay
             setTimeout(() => {
-                const aiResponse = getCoachResponse(message);
-                const aiMsg = document.createElement('div');
-                aiMsg.className = 'message ai';
-                aiMsg.innerHTML = `
-                    <div class="message-content">${aiResponse}</div>
+                const coachResponse = getCoachResponse(message, false);
+                const coachMsg = document.createElement('div');
+                coachMsg.className = 'message coach';
+                coachMsg.innerHTML = `
+                    <div class="message-content">${coachResponse}</div>
                     <div class="message-time">${getCurrentTime()}</div>
                 `;
-                coachChatMessages.appendChild(aiMsg);
+                coachChatMessages.appendChild(coachMsg);
                 coachChatMessages.scrollTop = coachChatMessages.scrollHeight;
             }, 1000);
         }
 
-        // AI Response generators
-        function getAIResponse(message) {
+        // Health Coach Response generators
+        function getCoachResponse(message, isRecommendationChat = false) {
             const lowerMessage = message.toLowerCase();
             
-            if (lowerMessage.includes('vitamin d') || lowerMessage.includes('d3')) {
-                return "Vitamin D3 is often recommended for immune support and bone health. It works synergistically with Vitamin K2 for optimal calcium absorption. Based on your profile, a dose of 1000-2000 IU daily might be appropriate, but please consult with your healthcare provider for personalized dosing.";
-            } else if (lowerMessage.includes('magnesium') || lowerMessage.includes('sleep')) {
-                return "Magnesium glycinate is a highly bioavailable form that's gentle on the stomach. It supports relaxation, sleep quality, and muscle function. Many people take 200-400mg about 30 minutes before bedtime. It's particularly helpful if you've mentioned stress or sleep goals.";
-            } else if (lowerMessage.includes('omega') || lowerMessage.includes('fish oil')) {
-                return "The Omega-3 recommendation includes both EPA and DHA, which support heart, brain, and joint health. Look for a product with at least 500mg combined EPA/DHA per serving. If you have specific cardiovascular concerns, higher EPA formulas might be beneficial.";
-            } else if (lowerMessage.includes('probiotic') || lowerMessage.includes('gut')) {
-                return "The probiotic recommendation contains multiple strains to support gut microbiome diversity. Different strains serve different functions, so a broad-spectrum formula is ideal for general digestive wellness. Take with food for better survival through stomach acid.";
+            if (isRecommendationChat) {
+                if (lowerMessage.includes('vitamin d') || lowerMessage.includes('d3')) {
+                    return "Vitamin D3 is often recommended for immune support and bone health. It works synergistically with Vitamin K2 for optimal calcium absorption. Based on your profile, a dose of 1000-2000 IU daily might be appropriate, but please consult with your healthcare provider for personalized dosing.";
+                } else if (lowerMessage.includes('magnesium') || lowerMessage.includes('sleep')) {
+                    return "Magnesium glycinate is a highly bioavailable form that's gentle on the stomach. It supports relaxation, sleep quality, and muscle function. Many people take 200-400mg about 30 minutes before bedtime. It's particularly helpful if you've mentioned stress or sleep goals.";
+                } else if (lowerMessage.includes('omega') || lowerMessage.includes('fish oil')) {
+                    return "The Omega-3 recommendation includes both EPA and DHA, which support heart, brain, and joint health. Look for a product with at least 500mg combined EPA/DHA per serving. If you have specific cardiovascular concerns, higher EPA formulas might be beneficial.";
+                } else if (lowerMessage.includes('probiotic') || lowerMessage.includes('gut')) {
+                    return "The probiotic recommendation contains multiple strains to support gut microbiome diversity. Different strains serve different functions, so a broad-spectrum formula is ideal for general digestive wellness. Take with food for better survival through stomach acid.";
+                } else {
+                    return "Based on your health profile including " + 
+                           (userData.goals.length > 0 ? `your goals (${userData.goals.slice(0, 2).join(', ')}), ` : '') +
+                           (userData.conditions.length > 0 ? `your health considerations, ` : '') +
+                           "these recommendations are tailored to provide foundational support. Remember to discuss any new supplements with your healthcare provider, especially if you're taking medications.";
+                }
             } else {
-                return "Based on your health profile including " + 
-                       (userData.goals.length > 0 ? `your goals (${userData.goals.slice(0, 2).join(', ')}), ` : '') +
-                       (userData.conditions.length > 0 ? `your health considerations, ` : '') +
-                       "these recommendations are tailored to provide foundational support. Remember to discuss any new supplements with your healthcare provider, especially if you're taking medications.";
-            }
-        }
-
-        function getCoachResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            
-            if (lowerMessage.includes('energy') || lowerMessage.includes('tired')) {
-                return "For boosting energy, consider: 1) Ensuring adequate sleep (7-9 hours), 2) Balanced blood sugar through regular meals with protein, 3) B-vitamins for energy metabolism, 4) Iron if levels are low (get tested), and 5) Regular movement throughout the day. Would you like more specific supplement suggestions?";
-            } else if (lowerMessage.includes('stress') || lowerMessage.includes('anxiety')) {
-                return "Stress management strategies include: 1) Mindfulness or meditation practice, 2) Adaptogenic herbs like ashwagandha or rhodiola, 3) Magnesium for nervous system support, 4) Omega-3s for brain health, 5) Establishing boundaries and self-care routines. What aspect of stress are you most concerned about?";
-            } else if (lowerMessage.includes('sleep') || lowerMessage.includes('insomnia')) {
-                return "For better sleep: 1) Establish a consistent sleep schedule, 2) Create a dark, cool sleeping environment, 3) Limit screen time 1-2 hours before bed, 4) Consider magnesium glycinate, L-theanine, or melatonin (short-term), 5) Address any underlying stress or anxiety. How long have you been experiencing sleep issues?";
-            } else if (lowerMessage.includes('weight') || lowerMessage.includes('diet')) {
-                return "Weight management involves multiple factors: 1) Balanced nutrition with adequate protein, 2) Regular physical activity you enjoy, 3) Stress management (cortisol affects weight), 4) Quality sleep, 5) Possible metabolic support like chromium or berberine. Would you like to focus on a particular aspect?";
-            } else {
-                return "That's an excellent question about wellness. Based on current research and your health profile, I recommend discussing this with a healthcare provider for personalized advice. In general, a holistic approach that includes nutrition, movement, stress management, and sleep hygiene forms the foundation of good health. Is there a specific health goal you'd like to focus on?";
+                if (lowerMessage.includes('energy') || lowerMessage.includes('tired')) {
+                    return "For boosting energy, consider: 1) Ensuring adequate sleep (7-9 hours), 2) Balanced blood sugar through regular meals with protein, 3) B-vitamins for energy metabolism, 4) Iron if levels are low (get tested), and 5) Regular movement throughout the day. Would you like more specific supplement suggestions?";
+                } else if (lowerMessage.includes('stress') || lowerMessage.includes('anxiety')) {
+                    return "Stress management strategies include: 1) Mindfulness or meditation practice, 2) Adaptogenic herbs like ashwagandha or rhodiola, 3) Magnesium for nervous system support, 4) Omega-3s for brain health, 5) Establishing boundaries and self-care routines. What aspect of stress are you most concerned about?";
+                } else if (lowerMessage.includes('sleep') || lowerMessage.includes('insomnia')) {
+                    return "For better sleep: 1) Establish a consistent sleep schedule, 2) Create a dark, cool sleeping environment, 3) Limit screen time 1-2 hours before bed, 4) Consider magnesium glycinate, L-theanine, or melatonin (short-term), 5) Address any underlying stress or anxiety. How long have you been experiencing sleep issues?";
+                } else if (lowerMessage.includes('weight') || lowerMessage.includes('diet')) {
+                    return "Weight management involves multiple factors: 1) Balanced nutrition with adequate protein, 2) Regular physical activity you enjoy, 3) Stress management (cortisol affects weight), 4) Quality sleep, 5) Possible metabolic support like chromium or berberine. Would you like to focus on a particular aspect?";
+                } else {
+                    return "That's an excellent question about wellness. Based on current research and your health profile, I recommend discussing this with a healthcare provider for personalized advice. In general, a holistic approach that includes nutrition, movement, stress management, and sleep hygiene forms the foundation of good health. Is there a specific health goal you'd like to focus on?";
+                }
             }
         }
 
@@ -1623,6 +2035,85 @@
                 alert('Please select a date for your consultation.');
             }
         });
+
+        // Setup authentication modals
+        function setupAuthModals() {
+            // Login button
+            loginBtn.addEventListener('click', function() {
+                loginModal.classList.add('active');
+            });
+            
+            // Signup button
+            signupBtn.addEventListener('click', function() {
+                signupModal.classList.add('active');
+            });
+            
+            // Close modals
+            closeLoginModal.addEventListener('click', function() {
+                loginModal.classList.remove('active');
+            });
+            
+            closeSignupModal.addEventListener('click', function() {
+                signupModal.classList.remove('active');
+            });
+            
+            cancelLogin.addEventListener('click', function() {
+                loginModal.classList.remove('active');
+            });
+            
+            cancelSignup.addEventListener('click', function() {
+                signupModal.classList.remove('active');
+            });
+            
+            // Switch between login and signup
+            switchToSignup.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.classList.remove('active');
+                signupModal.classList.add('active');
+            });
+            
+            switchToLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                signupModal.classList.remove('active');
+                loginModal.classList.add('active');
+            });
+            
+            // Submit login
+            submitLogin.addEventListener('click', function() {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                if (email && password) {
+                    alert('Login successful! Welcome to Wellora.');
+                    loginModal.classList.remove('active');
+                    // In a real app, you would send this to your backend
+                } else {
+                    alert('Please enter both email and password.');
+                }
+            });
+            
+            // Submit signup
+            submitSignup.addEventListener('click', function() {
+                const name = document.getElementById('signupName').value;
+                const email = document.getElementById('signupEmail').value;
+                const password = document.getElementById('signupPassword').value;
+                const confirmPassword = document.getElementById('signupConfirmPassword').value;
+                
+                if (!name || !email || !password || !confirmPassword) {
+                    alert('Please fill in all fields.');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match.');
+                    return;
+                }
+                
+                alert('Account created successfully! Welcome to Wellora.');
+                signupModal.classList.remove('active');
+                // In a real app, you would send this to your backend
+            });
+        }
 
         // Helper functions
         function getCurrentTime() {
